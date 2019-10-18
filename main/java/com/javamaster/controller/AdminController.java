@@ -72,8 +72,9 @@ public class AdminController {
         return "edit";
     }
 
-    @PostMapping("/users/edit")
-    public String edit(@ModelAttribute User user, @RequestParam List<String> searchValues) {
+    @PostMapping("/users/edit/{id}")
+    public String edit(@PathVariable("id") long id, @ModelAttribute User user, @RequestParam List<String> searchValues) {
+        user.setId(id);
         for (String roleStr : searchValues) {
             Role role = roleRepo.getRoleByRoleName(roleStr);
             user.getRoles().add(role);
