@@ -1,42 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Users</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-          integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{main :: layout (~{::body}, 'User')}"
+      lang="en">
 <body>
-<div class="container my-5">
-    <h3> User </h3>
-    <div class="card">
-        <div class="card-body">
-            <div class="col-md-8">
-                <form>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label>Name: </label>
-                            <output th:text="*{loadUser.username}"></output>
-                        </div>
-                        <div class="form-group col-md-8">
-                            <label>Password: </label>
-                            <output th:text="*{loadUser.password}"></output>
-                        </div>
-                        <div class="form-group col-md-8">
-                            <label>Role: </label>
-                            <output th:each="search : ${loadUser.getAuthorities()}">
-                                <output th:text="${search.getAuthority()}"></output>
-                            </output>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<h3> User page </h3>
+<br/>
+<h5>Hello <output th:text="*{loadUser.username}"></output> !</h5>
 </body>
 </html>

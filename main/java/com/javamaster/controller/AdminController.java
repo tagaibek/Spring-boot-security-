@@ -25,10 +25,11 @@ public class AdminController {
     private RoleRepo roleRepo;
 
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @RequestMapping(value = {"", "/users"}, method = RequestMethod.GET)
     public String listUsers(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("listUsers", userRepo.findAll());
+        model.addAttribute("roleList", roleRepo.findAll());
 
         return "browse";
     }
@@ -68,6 +69,8 @@ public class AdminController {
         }
         model.addAttribute("roleList", roleRepo.findAll());
         model.addAttribute("user", optionalUser.get());
+
+        redirectAttributes.addFlashAttribute("success_message", "The changes has been successfully saved.");
 
         return "edit";
     }
