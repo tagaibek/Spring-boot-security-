@@ -25,7 +25,7 @@ public class AdminController {
     private RoleRepo roleRepo;
 
 
-    @RequestMapping(value = {"", "/users"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/users"}, method = RequestMethod.GET)
     public String listUsers(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("listUsers", userRepo.findAll());
