@@ -1,11 +1,10 @@
 $(document).ready(function () {
-    $.get('/api/users', function (users) {
+    $.get('/api/users', function users(users) {
         for (const user of users) {
             users_table(user);
         }
     });
 });
-
 
 $(document).ready(function () {
     $("#add_form").submit(function (event) {
@@ -31,14 +30,17 @@ function deleteUser(id) {
         type: 'DELETE',
         success: function (data, textStatus, xhr) {
             if (xhr.status === 200){
-                $('#user-list tr:eq('+id+')').remove();
+
+                $('#user-list tr#'+id).remove();
                 $('#user-list').trigger('click');
+
             }
         }
     });
 }
 function  users_table(user) {
     let tr = $(document.createElement('tr'));
+    tr.attr('id', user.id);
     let tdUsername = $(document.createElement('td'));
     tdUsername.text(user.username);
     tr.append(tdUsername);
@@ -54,7 +56,6 @@ function  users_table(user) {
     tr.append(tdRoles);
 
     let tdEdit = $(document.createElement('td'));
-    var name = user.username;
     tdEdit.append("<button type=\"button\" class=\"btn btn-primary\" id='edit' onclick=editUser("+user.id+")>" +
         "<i class=\"fas fa-user-edit ml-2\"></i> Edit</button>");
     tr.append(tdEdit);
@@ -92,7 +93,7 @@ function edit_ajax_submit() {
         type: 'PUT',
         data: $("#update-user").serialize(),
         success: function (user) {
-            $('#user-list tr:eq('+user.id+')').remove();
+            $('#user-list tr#'+user.id).remove();
             users_table(user);
             $('#close_edit').trigger('click');
             $('#user-list').trigger('click');
