@@ -54,24 +54,31 @@ function  users_table(user) {
     tr.append(tdRoles);
 
     let tdEdit = $(document.createElement('td'));
-    tdEdit.append("<button type=\"button\" class=\"btn btn-primary\" id='edit' onclick=editUser("+user+")>" +
+    var name = user.username;
+    tdEdit.append("<button type=\"button\" class=\"btn btn-primary\" id='edit' onclick=editUser("+user.id+")>" +
         "<i class=\"fas fa-user-edit ml-2\"></i> Edit</button>");
     tr.append(tdEdit);
 
     let tdDelete = $(document.createElement('td'));
-    tdDelete.append("<a class=\"btn btn-primary\" id='delete'  onclick=deleteUser(" + user.id +")>" +
+    tdDelete.append("<a class=\"btn btn-primary\" id='delete'  onclick=deleteUser("+ user.id +")>" +
         "<i class=\"fas fa-user-times ml-2\"></i></a>");
 
     tr.append(tdDelete);
 
     $('#user-list').append(tr);
 }
-function editUser(user){
-    $('#id_edit').val(user.id);
-    $('#username_edit').val(user.username);
-    $('#password_edit').val(user.password);
-    $('#roles_edit').val(user.roles);
-    $.ajax($('.modal').modal('show'))
+function editUser(id){
+    $.ajax({
+        url: "/api/user/"  +  id,
+        type: 'GET',
+        success: function (user) {
+            $('#id_edit').val(user.id);
+            $('#username_edit').val(user.username);
+            $('#password_edit').val(user.password);
+            $('#roles_edit').val(user.roles);
+            $.ajax($('.modal').modal('show'))
+        }
+    });
 }
 $(document).ready(function() {
     $("#update-user").submit(function (event){
