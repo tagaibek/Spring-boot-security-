@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan("com.javamaster.config")
+//@ComponentScan("com.javamaster.config")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -46,7 +46,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin*", "/admin/**").hasRole("ADMIN")
+                .antMatchers("/api**").hasRole("ADMIN")
+                .antMatchers("/admin**").hasRole("ADMIN")
                 .antMatchers("/user").hasRole("USER")
                 .antMatchers("/user").hasRole("ADMIN")
                 .and()

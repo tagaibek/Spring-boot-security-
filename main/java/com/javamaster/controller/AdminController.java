@@ -25,13 +25,10 @@ public class AdminController {
     private RoleRepo roleRepo;
 
 
-    @RequestMapping(value = {"/users"}, method = RequestMethod.GET)
-    public String listUsers(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("listUsers", userRepo.findAll());
+    @RequestMapping(value = {"", "/users"}, method = RequestMethod.GET)
+    public String listUsers(Model model ) {
         model.addAttribute("roleList", roleRepo.findAll());
-
-        return "browse";
+        return "browse2";
     }
 
     @RequestMapping(value = "/users/add", method = RequestMethod.GET)
